@@ -73,8 +73,9 @@ class PINN(nn.Module):
         out = self.layers[-1](out)  # 最后一层无激活函数
         
         # 使用硬约束 - 参考您提供的代码中的实现
-        out = torch.sin(np.pi*x) + torch.sin(2*np.pi*x) + torch.sin(np.pi*x)*t**2 * out
-        # out = torch.sin(np.pi*x) + torch.sin(2*np.pi*x) + torch.sin(np.pi*x)*torch.sin(5*np.pi*t**2 * out)
+        # out = torch.sin(np.pi*x) + torch.sin(2*np.pi*x) + torch.sin(np.pi*x)*t**2 * out # 模型的硬约束
+        # 模型的硬约束 - 这里使用了一个更复杂的非线性函数来增强模型的表达能力
+        out = torch.sin(np.pi*x) + torch.sin(2*np.pi*x) + torch.sin(np.pi*x)*torch.sin(5*np.pi*t**2 * out) 
         
         return out
     
